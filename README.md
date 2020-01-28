@@ -15,6 +15,7 @@
 ## About-Process
 
 <p>The following SQL logic will perform the following actions.
+
 1. Automatically create a backup folder structure on a network share ( you just provide the share name )
 2. Automatically delete old Full Database Backups if they exist ( current retention is 2 days. feel free to modify )
 3. Automatically perform Full Database Backups on all Databases.
@@ -23,16 +24,20 @@
 6. Automatically shrink Transaction Log Data Files down to the lowest 8kb increment.
 7. Automatically perform DBCC CheckDB across all Databases.
 8. Automatically shrink Data Files down to the lowest 8kb increment.
+
 I recommend copying the logic and creating 3 Agent Jobs in the following construct:
+
 Job1:
 DATABASE BACKUP FULL ALL DATABASES
 Step 1. Delete old full backups.
 Step 2. Run Full Database Backups
+
 Job2:
 DATABASE BACKUP TLOG ALL DATABASES
 Step 1. Delete old transaction log backups.
 Step 2. Run Transaction Log Backups.
 Step 3. Shrink Transaction Log Data Files.
+
 Job3:
 DATABASE MAINTENANCE
 Step 1. Run DBCC CheckDB
